@@ -36,7 +36,6 @@ function err($var){
 	echo ' alert("'.$var.'")';  //showing an alert box.
 	echo '</script>';
 }
-//////////////////////////////////////////////////////////////////////////////////////////////
 
 ?>
 <?php include 'includes/header.php'; ?>
@@ -61,8 +60,9 @@ function err($var){
 						</div>
 					</div>
 					<a href="reset.php">Forget Password?</a>
-					<div class="h-captcha" data-sitekey="b5a27318-cdb1-4c68-9ebf-98aca4fc6839" data-size="invisible"></div>
-					<button class="btn dark" type="submit">Login</button>
+					<div class="h-captcha" data-sitekey="b5a27318-cdb1-4c68-9ebf-98aca4fc6839" data-callback="onSubmit" data-size="invisible"></div>
+					<button class="btn dark">Login</button>
+					<span class="err"></span>
 				</form>
 			</div>
 		</div>

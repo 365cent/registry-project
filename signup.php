@@ -72,7 +72,9 @@ function err($var){
 						</div>
 					</div>
 					<a href="login.php">Already have account?</a>
-					<button class="btn dark h-captcha" data-sitekey="b5a27318-cdb1-4c68-9ebf-98aca4fc6839" data-callback="onSubmit">Sign Up</button>
+					<div class="h-captcha" data-sitekey="b5a27318-cdb1-4c68-9ebf-98aca4fc6839" data-callback="onSubmit" data-size="invisible"></div>
+					<button class="btn dark">Sign Up</button>
+					<span class="err"></span>
 				</form>
 			</div>
 		</div>

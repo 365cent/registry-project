@@ -2,7 +2,7 @@
 require 'library.php';
 $pdo = connectDB();
 if(isset($_GET['username'])){
-        
+    $username = $_GET['username'];
     //query for record matching user name 
     $statement = $pdo->prepare("SELECT username FROM `users` WHERE username = ?");
     $statement->execute([$username]);

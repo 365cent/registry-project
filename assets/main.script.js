@@ -1,18 +1,15 @@
+function onSubmit(token) {
+	document.getElementsByTagName('form')[0].submit();
+}
 function validate(event) {
 	event.preventDefault();
-	if (!document.getElementById('field').value) {
-		alert('You must add text to the required field');
+	let err = document.getElementsByClassName('err')[0];
+	err.innerText = '';
+	if (!document.getElementsByName('username')[0].value || !document.getElementsByName('password')[0].value) {
+		err.innerText = 'Please fill in all fields';
 	} else {
 		hcaptcha.execute();
 	}
-}
-
-function onload() {
-	var element = document.getElementById('submit');
-	element.onclick = validate;
-}
-
-function onSubmit(token) {
 }
 window.addEventListener('load', function () {
 	let menuOpen = false;
@@ -25,42 +22,40 @@ window.addEventListener('load', function () {
 			document.querySelector('main').style.marginTop = '4em';
 		}
 	})
-
-	let swiper = new Swiper("#explore", {
-		mousewheel: true,
-		slidesPerView: "auto",
-		spaceBetween: 30,
-		scrollbar: {
-			el: ".swiper-scrollbar",
-		},
-		autoplay: {
-			delay: 5000,
-		},
-	});
-	if (window.location.pathname.includes('signup')) {
-		const username = document.getElementById("username");
-		username.addEventListener("blur", () => { //add event listener for blur
-			var errMsg = document.getElementById("error");
-			if (errMsg) { //if there is an error message already, remove it
-				errMsg.remove();
-			}
-			fetch('includes/api.php?username=' + username.value) //fetch the data from the api
-				//.then(response => response.json())
-				.then(response => response.text())
-				.then(response => {
-					if (response == 'false' || response == 'error') { // if the response is false or error, show the error message
-						var errMsg = document.createElement('span');
-						errMsg.classList.add('error');
-						errMsg.setAttribute('id', 'error');
-						errMsg.innerText = 'username already taken';
-						username.parentNode.insertBefore(errMsg, username.nextSibling);
-						usernameValid = false;
-					}
-					else {
-						usernameValid = true;
-					}
-				}
-				);
+	if (location.pathname == '/') {
+		let swiper = new Swiper("#explore", {
+			mousewheel: true,
+			slidesPerView: "auto",
+			spaceBetween: 30,
+			scrollbar: {
+				el: ".swiper-scrollbar",
+			},
+			autoplay: {
+				delay: 5000,
+			},
 		});
-	}
+	} else {
+		let submit = document.querySelector('form button');
+		let err = document.getElementsByClassName('err')[0];
+		submit.onclick = validate;
+		if (location.pathname.includes('signup')) {
+			const username = document.getElementsByName("username")[0];
+			username.addEventListener("blur", () => { //add event listener for blur
+				err.innerText = '';
+				fetch('includes/api.php?username=' + username.value) //fetch the data from the api
+					//.then(response => response.json())
+					.then(response => response.text())
+					.then(response => {
+						if (response == 'true') { // if the response is false or error, show the error message
+							err.innerText = 'Username already taken';
+							usernameValid = false;
+						}
+						else {
+							usernameValid = true;
+						}
+					}
+					);
+			});
+		}
+	} 
 });

@@ -428,6 +428,12 @@ footer span {
 	transform: rotate(180deg);
 	z-index: 0;
 }
+.err {
+	display: block;
+	color: #ff2d55;
+	padding: .6em 0;
+	text-align: center;
+}
 .float {
 	animation: floatUp 2s ease forwards;
 }
@@ -473,8 +479,4 @@ footer span {
 	to {
 		background-position: 200% center;
 	}
-}
-/*//////////////////////////////////////////////////////////////////////////////*/
-.error{
-	color: red;
 }
