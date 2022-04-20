@@ -4,8 +4,6 @@ $username = $_POST['username']??null;
 $password = $_POST['password'] ??null;
 $email = $_POST['email'] ??null;
 
-$iserror= $username =="" || $password=="";
-
 if(isset($_POST['submit'])){
 	$pdo = connectDB();
 	$query = "INSERT INTO users (username, password, email) VALUES (?, ?, ?);";
