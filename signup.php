@@ -1,7 +1,7 @@
 <?php 
 include 'includes/library.php';
-$username = $_POST['username'];
-$password = $_POST['password'];
+$username = $_POST['username']??null;
+$password = $_POST['password'] ??null;
 $errors = array();
 $iserror= $username =="" || $password=="";
 $whitepattern="/^[a-z\d]*$/i";
@@ -18,7 +18,7 @@ if(isset($_POST['submit'])){
 			$errors['password'] = true;
 		}
 		$pdo = connectDB();
-		$query = "SELECT `username` FROM 3420_project WHERE username = '$username'";
+		$query = "SELECT `username` FROM users WHERE username = '$username'";
 		$stmt = $pdo->query($query);
 		if($stmt){
 			err("username is already exists");

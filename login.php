@@ -10,7 +10,7 @@ $password = $_POST["password"] ?? null;
 if (isset($_POST["submit"])) {
 	//return the case if it is empty
 	$pdo = connectDB();
-	$query = " SELECT `username`,`password`,`id`,`email` FROM 3420_project where username = $username";
+	$query = " SELECT `username`,`password`,`id`,`email` FROM users where username = $username";
 	$stmt = $pdo->query($query);
 	//check if the username is in the database
 	if(!$stmt){
@@ -26,7 +26,6 @@ if (isset($_POST["submit"])) {
 		 }
 		$_SESSION['id'] = $stmt->fetch()['id'];
 	}
-	$pdo = null;
 	if(!$error){
 		header("Location: user.php");
 		exit();
