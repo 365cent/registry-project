@@ -2,40 +2,38 @@
 include 'includes/library.php';
 $username = $_POST['username']??null;
 $password = $_POST['password'] ??null;
-$errors = array();
+$errors = false;
 $iserror= $username =="" || $password=="";
 $whitepattern="/^[a-z\d]*$/i";
 $blackpattern="/\*|'|\"|#|;|,|or|\^|=|<|>|and/i";
 
 if(isset($_POST['submit'])){
 	if(!$iserror){
-		if(preg_match($blackpattern, $username)){
-			err("username is not valid");
-			$errors['username'] = true;
-		}
-		if(!preg_match($whitepattern, $_POST['password'])){
-			err("password is not valid");
-			$errors['password'] = true;
-		}
-		$pdo = connectDB();
-		$query = "SELECT `username` FROM users WHERE username = '$username'";
-		$stmt = $pdo->query($query);
-		if($stmt){
-			err("username is already exists");
-			$errors['username'] = true;
-		}
+		// if(preg_match($blackpattern, $username)){
+		// 	err("username is not valid");
+		// 	$errors['username'] = true;
+		// }
+		// if(!preg_match($whitepattern, $_POST['password'])){
+		// 	err("password is not valid");
+		// 	$errors['password'] = true;
+		// }
+		// $pdo = connectDB();
+		// $query = "SELECT `username` FROM users WHERE username = '$username'";
+		// $stmt = $pdo->query($query);
+		// if($stmt){
+		// 	err("username is already exists");
+		// 	$errors['username'] = true;
+		// }
 	}else{
-		err("username or password is not exists");
-		$errors['contents'] = true;
+		err("username or password is not valid");
+		$errors= true;
 	}
 	if(count($errors) == 0){
 		header("Location: user.php");
 	}
 }
 function err($var){
-	echo '<script type="text/javascript">';
-	echo ' alert("'.$var.'")';  //showing an alert box.
-	echo '</script>';
+	echo '<script type="text/javascript">alert("'.$var.'")</script>';
 }
 ?>
 <?php include 'includes/header.php'; ?>
