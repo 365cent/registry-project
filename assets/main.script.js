@@ -14,9 +14,9 @@ function validate(event) {
 function usernameIsValid(username) {
 	return /^[0-9a-zA-Z_.-]+$/.test(username);
 }
-//https://www.jianshu.com/p/c35d78385feb
+
 function passwordIsValid(password) {
-	return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(password);
+	return /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/.test(password);
 }
 function emailisvalid(email) {
 	return /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/.test(email);
@@ -101,6 +101,7 @@ window.addEventListener('load', function () {
 						err.innerText = pre;
 					}
 				}else{
+					console.log(password.value);
 					err.innerText = 'password is not valid';
 					passwordValid = false;
 				}
@@ -123,7 +124,7 @@ window.addEventListener('load', function () {
 						confirmedvalid = false;
 					}
 				}else{
-					err.innerText = 'password is not valid';
+					err.innerText = 'password confirmation is not valid';
 					confirmedvalid = false;
 				}
 			});

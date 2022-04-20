@@ -32,9 +32,7 @@ if (isset($_POST["submit"])) {
 	}
 }
 function err($var){
-	echo '<script type="text/javascript">';
-	echo ' alert("'.$var.'")';  //showing an alert box.
-	echo '</script>';
+	echo '<script type="text/javascript">alert("'.$var.'")</script>';
 }
 
 ?>
