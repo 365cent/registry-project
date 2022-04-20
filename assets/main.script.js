@@ -16,12 +16,19 @@ function usernameIsValid(username) {
 }
 //https://www.jianshu.com/p/c35d78385feb
 function passwordIsValid(password) {
-	return /^(?![0-9]+$)(?![a-z]+$)(?![A-Z]+$)(?!([^(0-9a-zA-Z)])+$).{6,20}$/.test(password);
+	return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(password);
 }
+function emailisvalid(email) {
+	return /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/.test(email);
+}
+
 window.addEventListener('load', function () {
 	let menuOpen = false;
 	let usernameValid = false;
 	let passwordValid = false;
+	let confirmedvalid = false;
+	let emailValid = false;
+	
 	document.querySelector('nav details summary').addEventListener('click', function () {
 		menuOpen = !menuOpen;
 		if (menuOpen) {
@@ -48,8 +55,14 @@ window.addEventListener('load', function () {
 		submit.onclick = validate;
 
 		if (location.pathname.includes('signup')) {
-			const username = document.getElementsByName("username")[0];
+			var username = document.getElementsByName("username")[0];
+			var password = document.getElementsByName("password")[0];
+			var confirmed = document.getElementsByName("password")[1];
+			var email = document.getElementsByName("email")[0];
+
+
 			username.addEventListener("blur", () => { //add event listener for blur
+				var pre = err.innerText;
 				err.innerText = '';
 				if(usernameIsValid(username.value)){
 					fetch('includes/api.php?username=' + username.value) //fetch the data from the api
@@ -61,6 +74,11 @@ window.addEventListener('load', function () {
 								usernameValid = false;
 							}
 							else {
+								if(pre == 'Username already taken'|| pre == 'Username is nort valid'){
+									err.innerText = '';
+								}else{
+									err.innerText = pre;
+								}
 								usernameValid = true;
 							}
 						}
@@ -69,15 +87,58 @@ window.addEventListener('load', function () {
 					err.innerText = 'Username is nort valid';
 					usernameValid = false;
 				}
-			
-				if(passwordIsValid(document.getElementsByName("password")[0].value)){
-					err.innerHTML = '';
+			});
+			//test if the password is valid
+			password.addEventListener("blur", () => { 
+				var pre = err.innerText;
+				err.innerText = '';
+				//check if the password is valid
+				if(passwordIsValid(password.value)){
+					passwordValid = true;
+					if(pre == 'Password is not valid'){
+						err.innerText = '';
+					}else{
+						err.innerText = pre;
+					}
 				}else{
 					err.innerText = 'password is not valid';
 					passwordValid = false;
 				}
-				
 			});
+			//test if the confirmed password is valid
+			confirmed.addEventListener("blur", () => { 
+				var pre = err.innerText;
+				err.innerText = '';
+				//check if the password is valid
+				if(password.value == confirmed.value){
+					confirmedvalid = true;
+					if(pre == 'password confirmation is not valid'){
+						err.innerText = '';
+					}else{	
+						err.innerText = pre;
+					}
+				}else{
+					err.innerText = 'password confirmation is not valid';
+					confirmedvalid = false;
+				}
+			});
+			email.addEventListener("blur", () => { 
+				var pre = err.innerText;
+				err.innerText = '';
+				//check if the email is valid
+				if(emailisvalid(email.value)){
+					emailValid = true;
+					if(pre == 'email is not valid'){
+						err.innerText = '';
+					}else{
+						err.innerText = pre;
+					}
+				}else{
+					err.innerText = 'email is not valid';
+					emailValid = false;
+				}
+			});
+			
 		}
 	} 
 });
