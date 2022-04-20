@@ -15,7 +15,6 @@ if ( !empty($_POST)) {
 	//var_dump($query);
 	$stmt = $pdo->prepare($query)->execute([$username]);
 	//check if the username is in the database
-	var_dump($stmt);
 	if(!$stmt){
 		//err("username is not exits");
 		$error = true;
@@ -51,6 +50,7 @@ if ( !empty($_POST)) {
 							<i class="ri-user-3-fill"></i>
 							<span class="border"></span>
 						</div>
+						<span class="err"></span>
 						<label for="password">Password</label>
 						<div>
 							<input type="password" name="password" placeholder="Password">

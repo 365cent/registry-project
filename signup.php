@@ -28,24 +28,28 @@ if(isset($_POST['submit'])){
 							<i class="ri-user-3-fill"></i>
 							<span class="border"></span>
 						</div>
+						<span class="err"></span>
 						<label for="username">Email Address</label>
 						<div>
 							<input type="email" name="email" placeholder="Username">
 							<i class="ri-mail-fill"></i>
 							<span class="border"></span>
 						</div>
+						<span class="err"></span>
 						<label for="password">Password</label>
 						<div>
 							<input type="password" name="password" placeholder="Password">
 							<i class="ri-lock-fill"></i>
 							<span class="border"></span>
 						</div>
+						<span class="err"></span>
 						<label for="password">Repeat Password</label>
 						<div>
 							<input type="password" name="password" placeholder="Password">
 							<i class="ri-lock-fill"></i>
 							<span class="border"></span>
 						</div>
+						<span class="err"></span>
 					</div>
 					<a href="login.php">Already have account?</a>
 					<div class="h-captcha" data-sitekey="b5a27318-cdb1-4c68-9ebf-98aca4fc6839" data-callback="onSubmit" data-size="invisible"></div>

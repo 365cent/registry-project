@@ -341,7 +341,6 @@ main .hero video {
 .account form > div > div {
 	position: relative;
 	align-items: center;
-	margin-bottom: 2em;
 }
 .account input {
 	padding: .3em 0 0 2em;
@@ -430,6 +429,7 @@ footer span {
 }
 .err {
 	display: block;
+	height: 1em;
 	color: #ff2d55;
 	padding: .6em 0;
 	text-align: center;

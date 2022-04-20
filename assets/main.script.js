@@ -3,7 +3,7 @@ function onSubmit(token) {
 }
 function validate(event) {
 	event.preventDefault();
-	let err = document.getElementsByClassName('err')[0];
+	let err = document.getElementsByClassName('err')[length-1];
 	err.innerText = '';
 	if (!document.getElementsByName('username')[0].value || !document.getElementsByName('password')[0].value) {
 		err.innerText = 'Please fill in all fields';
@@ -60,86 +60,58 @@ window.addEventListener('load', function () {
 
 
 			username.addEventListener("blur", () => { //add event listener for blur
-				var pre = err.innerText;
-				err.innerText = '';
+				
 				if(usernameIsValid(username.value)){
 					fetch('includes/api.php?username=' + username.value) //fetch the data from the api
 						//.then(response => response.json())
 						.then(response => response.text())
 						.then(response => {
 							if (response == 'true') { // if the response is false or error, show the error message
-								err.innerText = 'Username already taken';
-								usernameValid = false;
+								username.parentNode.nextElementSibling.innerText = 'Username already taken';
+								valid = false;
 							}
 							else {
-								if(pre == 'Username already taken'|| pre == 'Username is nort valid'){
-									err.innerText = '';
-								}else{
-									err.innerText = pre;
-								}
-								usernameValid = true;
+								username.parentNode.nextElementSibling.innerText = '';
+								valid = true;
 							}
 						}
 						);	
 				}else{
-					err.innerText = 'Username is nort valid';
-					usernameValid = false;
+					password.parentNode.nextElementSibling.innerText = 'Username is nort valid';
+					valid = false;
 				}
 			});
 			//test if the password is valid
 			password.addEventListener("blur", () => { 
-				var pre = err.innerText;
-				err.innerText = '';
 				//check if the password is valid
 				if(passwordIsValid(password.value)){
-					passwordValid = true;
-					if(pre == 'Password is not valid'){
-						err.innerText = '';
-					}else{
-						err.innerText = pre;
-					}
+					valid = true;
+					password.parentNode.nextElementSibling.innerText = '';
 				}else{
-					console.log(password.value);
-					err.innerText = 'password is not valid';
-					passwordValid = false;
+					password.parentNode.nextElementSibling.innerText = 'Password is not valid';
+					valid = false;
 				}
 			});
 			//test if the confirmed password is valid
 			confirmed.addEventListener("blur", () => { 
-				var pre = err.innerText;
-				err.innerText = '';
 				//check if the password is valid
-				if(passwordIsValid(confirmed.value)){
-					if(password.value == confirmed.value){
-						confirmedvalid = true;
-						if(pre == 'password confirmation is not valid'){
-							err.innerText = '';
-						}else{	
-							err.innerText = pre;
-						}
-					}else{
-						err.innerText = 'password confirmation is not valid';
-						confirmedvalid = false;
+				if(password.value == confirmed.value){
+					valid = true;
+					confirmed.parentNode.nextElementSibling.innerText = '';
+					}else{	
+						confirmed.parentNode.nextElementSibling.innerText = 'confirmed password is not valid';
+						valid = false;
 					}
-				}else{
-					err.innerText = 'password confirmation is not valid';
-					confirmedvalid = false;
-				}
+				
 			});
 			email.addEventListener("blur", () => { 
-				var pre = err.innerText;
-				err.innerText = '';
 				//check if the email is valid
 				if(emailisvalid(email.value)){
-					emailValid = true;
-					if(pre == 'email is not valid'){
-						err.innerText = '';
-					}else{
-						err.innerText = pre;
-					}
+					email.parentNode.nextElementSibling.innerText = '';
+					valid = true;
 				}else{
-					err.innerText = 'email is not valid';
-					emailValid = false;
+					email.parentNode.nextElementSibling.innerText = 'email is not valid';
+					valid = false;
 				}
 			});
 			
