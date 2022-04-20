@@ -31,15 +31,14 @@ if($stmt->rowCount() == 0){
         alert("Database created successfully");
     }
     else{
-        alert("install failed");
+        alert("Install failed");
     }
 }else{
-    alert("install already done");
+    alert("Database already exists");
 }
+echo("<script>location.href='/'</script>");
 
 function alert($var){
-	echo '<script type="text/javascript">';
-	echo ' alert("'.$var.'")';  //showing an alert box.
-	echo '</script>';
+	echo '<script>alert("'.$var.'")</script>';
 }
 ?>

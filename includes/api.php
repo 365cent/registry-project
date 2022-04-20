@@ -1,5 +1,5 @@
 <?php
-require 'includes/library.php';
+require 'library.php';
 $pdo = connectDB();
 if(isset($_GET['username'])){
         
