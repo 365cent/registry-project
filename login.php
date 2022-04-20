@@ -1,38 +1,39 @@
 <?php 
 include 'includes/library.php';
-//available only for logged in users
-$error=false;
-$username = $_POST["username"] ?? null;
-$password = $_POST["password"] ?? null;
+
 //$username = RemoveXSS($_POST["username"]) ?? null;
 
 //check if the user name and password is able to login
-if (isset($_POST["submit"])) {
+if ( !empty($_POST)) {
+
+	$error=false;
+	$username = $_POST["username"] ?? null;
+	$password = $_POST["password"] ?? null;
 	//return the case if it is empty
 	$pdo = connectDB();
-	$query = " SELECT `username`,`password`,`id`,`email` FROM users where username = $username";
-	$stmt = $pdo->query($query);
+	$query = "SELECT * FROM users where username = '?'";
+	//var_dump($query);
+	$stmt = $pdo->prepare($query)->execute([$username]);
 	//check if the username is in the database
+	var_dump($stmt);
 	if(!$stmt){
-		err("username is not exits");
+		//err("username is not exits");
 		$error = true;
+		$msg = "username is not exits";
 	}else{
-		if(password_verify($password, $stmt->fetch()['password'])){
+		if(password_verify($password, $stmt['password'])){
 			session_start();
-			$_SESSION['id'] = $stmt->fetch()['id'];
+			$_SESSION['id'] = $stmt['id'];
 		 }else{
-			err("password is not correct");
+			//err("password is not correct");
+			$msg = "password or username is not correct";
 		   	$error = true;
 		 }
-		$_SESSION['id'] = $stmt->fetch()['id'];
 	}
 	if(!$error){
 		header("Location: user.php");
 		exit();
 	}
-}
-function err($var){
-	echo '<script type="text/javascript">alert("'.$var.'")</script>';
 }
 
 ?>
@@ -60,7 +61,7 @@ function err($var){
 					<a href="reset.php">Forget Password?</a>
 					<div class="h-captcha" data-sitekey="b5a27318-cdb1-4c68-9ebf-98aca4fc6839" data-callback="onSubmit" data-size="invisible"></div>
 					<button class="btn dark">Login</button>
-					<span class="err"></span>
+					<span class="err"><?php echo $msg??null ?></span>
 				</form>
 			</div>
 		</div>

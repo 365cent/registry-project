@@ -24,10 +24,8 @@ function emailisvalid(email) {
 
 window.addEventListener('load', function () {
 	let menuOpen = false;
-	let usernameValid = false;
-	let passwordValid = false;
-	let confirmedvalid = false;
-	let emailValid = false;
+	let valid = false;
+	
 
 	document.querySelector('nav details summary').addEventListener('click', function () {
 		menuOpen = !menuOpen;
