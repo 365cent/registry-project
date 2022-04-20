@@ -11,6 +11,16 @@ function validate(event) {
 		hcaptcha.execute();
 	}
 }
+
+function printErr(element, bool) {
+	if(bool) {
+		element.parentNode.nextElementSibling.innerText = '';
+	} else {
+		element.parentNode.nextElementSibling.innerText = element.parentNode.previousElementSibling.innerText + ' is not valid';
+	}
+	return bool;
+}
+
 function usernameIsValid(username) {
 	return /^[0-9a-zA-Z_.-]+$/.test(username);
 }
@@ -24,7 +34,7 @@ function emailisvalid(email) {
 
 window.addEventListener('load', function () {
 	let menuOpen = false;
-	let valid = false;
+	let errors = [];
 	
 
 	document.querySelector('nav details summary').addEventListener('click', function () {
@@ -49,7 +59,6 @@ window.addEventListener('load', function () {
 		});
 	} else {
 		let submit = document.querySelector('form button');
-		let err = document.getElementsByClassName('err')[0];
 		submit.onclick = validate;
 
 		if (location.pathname.includes('signup')) {
@@ -68,51 +77,30 @@ window.addEventListener('load', function () {
 						.then(response => {
 							if (response == 'true') { // if the response is false or error, show the error message
 								username.parentNode.nextElementSibling.innerText = 'Username already taken';
-								valid = false;
+								errors[0] = true;
 							}
 							else {
 								username.parentNode.nextElementSibling.innerText = '';
-								valid = true;
+								errors[0] = false;
 							}
 						}
 						);	
 				}else{
-					password.parentNode.nextElementSibling.innerText = 'Username is nort valid';
-					valid = false;
+					username.parentNode.nextElementSibling.innerText = 'Username is not valid';
+					errors[0] = true;
 				}
 			});
 			//test if the password is valid
-			password.addEventListener("blur", () => { 
-				//check if the password is valid
-				if(passwordIsValid(password.value)){
-					valid = true;
-					password.parentNode.nextElementSibling.innerText = '';
-				}else{
-					password.parentNode.nextElementSibling.innerText = 'Password is not valid';
-					valid = false;
-				}
+			password.addEventListener("blur", () => {
+				errors[1] = printErr(password, passwordIsValid(password.value));
 			});
-			//test if the confirmed password is valid
-			confirmed.addEventListener("blur", () => { 
-				//check if the password is valid
-				if(password.value == confirmed.value){
-					valid = true;
-					confirmed.parentNode.nextElementSibling.innerText = '';
-					}else{	
-						confirmed.parentNode.nextElementSibling.innerText = 'confirmed password is not valid';
-						valid = false;
-					}
-				
+			//test if the confirmed password is match
+			confirmed.addEventListener("blur", () => {
+				errors[2] = printErr(confirmed, password.value == confirmed.value)
 			});
 			email.addEventListener("blur", () => { 
 				//check if the email is valid
-				if(emailisvalid(email.value)){
-					email.parentNode.nextElementSibling.innerText = '';
-					valid = true;
-				}else{
-					email.parentNode.nextElementSibling.innerText = 'email is not valid';
-					valid = false;
-				}
+				errors[3] = printErr(email, emailisvalid(email.value));
 			});
 			
 		}
