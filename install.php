@@ -19,7 +19,7 @@ if($stmt->rowCount() == 0){
         `public` boolean NOT NULL,
         `disable` boolean NOT NULL,
         `featureImage` varchar(255) NOT NULL,
-        `password` varchar(255) NOT NULL,
+        `password` varchar(255),
 		`views` int NOT NULL,
         `expiryDate` datetime NOT NULL,
         `content` longtext NOT NULL,
@@ -27,10 +27,19 @@ if($stmt->rowCount() == 0){
         FOREIGN KEY(owner_id) REFERENCES users(id)
         );";
     $stmt = $pdo->query($query);
+    if($stmt){
+        alert("Database created successfully");
+    }
+    else{
+        alert("install failed");
+    }
 }else{
-    echo '<script type="text/javascript">';
-	echo ' alert("table already exists")';  //showing an alert box.
+    alert("install already done");
+}
+
+function alert($var){
+	echo '<script type="text/javascript">';
+	echo ' alert("'.$var.'")';  //showing an alert box.
 	echo '</script>';
-    header("Location: index.html");
 }
 ?>
