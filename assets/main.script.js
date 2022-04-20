@@ -28,7 +28,7 @@ window.addEventListener('load', function () {
 	let passwordValid = false;
 	let confirmedvalid = false;
 	let emailValid = false;
-	
+
 	document.querySelector('nav details summary').addEventListener('click', function () {
 		menuOpen = !menuOpen;
 		if (menuOpen) {
@@ -110,15 +110,20 @@ window.addEventListener('load', function () {
 				var pre = err.innerText;
 				err.innerText = '';
 				//check if the password is valid
-				if(password.value == confirmed.value){
-					confirmedvalid = true;
-					if(pre == 'password confirmation is not valid'){
-						err.innerText = '';
-					}else{	
-						err.innerText = pre;
+				if(passwordIsValid(confirmed.value)){
+					if(password.value == confirmed.value){
+						confirmedvalid = true;
+						if(pre == 'password confirmation is not valid'){
+							err.innerText = '';
+						}else{	
+							err.innerText = pre;
+						}
+					}else{
+						err.innerText = 'password confirmation is not valid';
+						confirmedvalid = false;
 					}
 				}else{
-					err.innerText = 'password confirmation is not valid';
+					err.innerText = 'password is not valid';
 					confirmedvalid = false;
 				}
 			});
