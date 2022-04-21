@@ -1,5 +1,9 @@
 <?php include 'includes/dash.header.php'; 
-$eid =false;
+include 'includes/library.php';
+$pdo = connectDB();
+$stmt = $pdo->prepare('SELECT * FROM users where id = ?');
+$stmt->execute([$id]);
+$results = $stmt->fetch();
 $Cname = $_POST['username']??null;
 $Cemail = $_POST['email']??null;
 $Cpassword = $_POST['password']??null;
@@ -22,9 +26,9 @@ function alert($var){
 	echo '<script>alert("'.$var.'")</script>';
 }
 
-if(isset($_GET['edit'])){
-    if($_GET['edit'] = $id){
-
+if(isset($_GET['id'])){
+    if($_GET['id'] = $id){
+        
     }
 }
 
@@ -60,9 +64,12 @@ if(isset($_POST['password'])){
 
 
 		<main>
-			<form action="" method="get">
-				<button name ="edit" value="<?php $id?>" type="submit">username</button>
-			</form>
+            <div class="profile">
+                <span><?php echo $results['username']?></span>
+                <span><?php echo $results['email']?></span>
+            </div> 
+				<button name ="edit" value="1">edit</button>
+			
 		</main>
 
 <?php include 'includes/dash.footer.php'; ?>
