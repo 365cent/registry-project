@@ -75,6 +75,9 @@ nav a {
 	text-decoration: none;
 	color: inherit;
 }
+nav i {
+	vertical-align: middle;
+}
 nav h1 {
 	font-weight: 600;
 }
@@ -409,15 +412,26 @@ main .hero video {
 .dropdown ul li {
 	line-height: 2em;
 	width: 6em;
-    padding: 0.6em;
+    padding: .6em;
     border-width: 1px;
     border-style: solid;
     border-color: transparent transparent #e5e5e5 transparent;
     background-color: rgb(255 255 255 / 0.8);
     backdrop-filter: saturate(180%) blur(20px);
 }
+.dropdown ul li:hover {
+	border-color: #111;
+}
 .dropdown ul li a:after {
 	content: none;
+}
+.list {
+	width: 96%;
+	max-width: 540px;
+	margin: 0 auto;
+	background: #fff;
+    border: 1px solid rgba(0, 0, 0, .1);
+    border-radius: 0.6em;
 }
 /*
  * Footer

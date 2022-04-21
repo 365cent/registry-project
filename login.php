@@ -44,8 +44,8 @@ if (!empty($_POST)) {
 	}
 }
 
-?>
-<?php include 'includes/header.php'; ?>
+$page = "Login";
+include 'includes/header.php'; ?>
 	<!-- Main content -->
 	<main>
 		<div class="account float">

@@ -16,9 +16,11 @@ if(!$id){
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Login - Sweet Registry</title>
+	<title><?php echo $page ?> - Sweet Registry</title>
 	<meta name="keywords" content="Sweet Registry, sweetregistry.com, event registry, wedding registry, babdy registry, myregistry, wedding gift, wedding registry tool, sync wedding registry, Canada wedding registry, The Knot Wedding Registry, Barrel Canada">
 	<meta name="description" content="Sweet Registry is	the best event registry for choosing and waitlisting gift">
+	<!-- Use emoji as favicon: https://css-tricks.com/emoji-as-a-favicon/ -->
+	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#x1F4DD;</text></svg>">
 	<!-- <link rel="canonical" href="https://loki.trentu.ca"> -->
 	<link rel="stylesheet" href="assets/style.css">
 	<!-- Preconnect for cross-origin assets -->
@@ -46,9 +48,9 @@ if(!$id){
 			</ul>
 			<div class="dropdown">
 				<ul>
-					<li><a title="Sweet Registry homepage" href="/">Home</a></li>
-					<li><a title="Edit my profile" href="user.php">User Profile</a></li>
-					<li><a href="user.php?logout=1">Logout</a></li>
+					<li><a title="Sweet Registry homepage" href="/"><i class="ri-home-line"></i>Home</a></li>
+					<li><a title="Edit my profile" href="user.php"><i class="ri-user-line"></i>User Profile</a></li>
+					<li><a href="user.php?logout=1"><i class="ri-logout-circle-line"></i>Logout</a></li>
 				</ul>
 			</div>
 			<details>

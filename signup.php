@@ -11,8 +11,8 @@ if(!empty($_POST)){
 	$stmt->execute([$username, password_hash($password, PASSWORD_DEFAULT), $email]);
 	header("Location: user.php");
 }
-?>
-<?php include 'includes/header.php'; ?>
+$page = "Signup";
+include 'includes/header.php'; ?>
 	<!-- Main content -->
 	<main>
 		<div class="account float">
