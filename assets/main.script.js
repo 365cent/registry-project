@@ -8,7 +8,6 @@ function validate(event, errors) {
 	err.innerText = '';
 	// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some
 	const hasErr = (element) => element == true;
-	console.log(errors);
 	if (!errors.some(hasErr) & errors.length != 0) {
 		hcaptcha.execute();
 	}
