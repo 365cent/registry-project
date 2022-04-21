@@ -11,16 +11,21 @@ if (!empty($_POST)) {
 	$password = $_POST["password"] ?? null;
 	//return the case if it is empty
 	$pdo = connectDB();
-	// $query = "SELECT * FROM users";
-	//var_dump($query);
-	$stmt = $pdo->prepare('SELECT * FROM users WHERE username = ?');
-	$stmt->execute([$username]);
-	$result = $stmt->fetch();
+	if(strpos($username,"@")){
+		$stmt = $pdo->prepare('SELECT * FROM users WHERE email = ?');
+		$stmt->execute([$username]);
+		$result = $stmt->fetch();
+	}else{
+		$stmt = $pdo->prepare('SELECT * FROM users WHERE username = ?');
+		$stmt->execute([$username]);
+		$result = $stmt->fetch();
+	}
+	var_dump($result);
 	//check if the username is in the database
 	if(!$result){
 		//err("username is not exits");
 		$error = true;
-		$msg = "username is not exits";
+		$msg = "username or email is not exits";
 	}else{
 		if(password_verify($password, $result['password'])){
 			session_start();
@@ -46,7 +51,7 @@ if (!empty($_POST)) {
 				<h2>Login</h2>
 				<form action="" method="post">
 					<div>
-						<label for="username">Username</label>
+						<label for="username">Username/email</label>
 						<div>
 							<input type="text" name="username" placeholder="Username">
 							<i class="ri-user-3-fill"></i>
