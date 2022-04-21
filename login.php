@@ -4,25 +4,27 @@ include 'includes/library.php';
 //$username = RemoveXSS($_POST["username"]) ?? null;
 
 //check if the user name and password is able to login
-if ( !empty($_POST)) {
+if (!empty($_POST)) {
 
 	$error=false;
 	$username = $_POST["username"] ?? null;
 	$password = $_POST["password"] ?? null;
 	//return the case if it is empty
 	$pdo = connectDB();
-	$query = "SELECT * FROM users where username = '?'";
+	// $query = "SELECT * FROM users";
 	//var_dump($query);
-	$stmt = $pdo->prepare($query)->execute([$username]);
+	$stmt = $pdo->prepare('SELECT * FROM users WHERE username = ?');
+	$stmt->execute([$username]);
+	$result = $stmt->fetch();
 	//check if the username is in the database
-	if(!$stmt){
+	if(!$result){
 		//err("username is not exits");
 		$error = true;
 		$msg = "username is not exits";
 	}else{
-		if(password_verify($password, $stmt['password'])){
+		if(password_verify($password, $result['password'])){
 			session_start();
-			$_SESSION['id'] = $stmt['id'];
+			$_SESSION['id'] = $result['id'];
 		 }else{
 			//err("password is not correct");
 			$msg = "password or username is not correct";

@@ -3,9 +3,9 @@ function onSubmit(token) {
 }
 function validate(event) {
 	event.preventDefault();
-	let err = document.getElementsByClassName('err')[length-1];
+	let err = document.getElementsByClassName('err')[document.getElementsByClassName('err').length-1];
 	err.innerText = '';
-	if (!document.getElementsByName('username')[0].value || !document.getElementsByName('password')[0].value) {
+	if (errors.every(val => val === true)) {
 		err.innerText = 'Please fill in all fields';
 	} else {
 		hcaptcha.execute();
@@ -60,8 +60,13 @@ window.addEventListener('load', function () {
 	} else {
 		let submit = document.querySelector('form button');
 		submit.onclick = validate;
-
-		if (location.pathname.includes('signup')) {
+		if(location.pathname.includes('login')) {
+			submit.onclick = function() {
+				if (!document.getElementsByName('username')[0].value || !document.getElementsByName('password')[0].value) {
+					errors[0] = true;
+				};
+			}
+		} else if (location.pathname.includes('signup')) {
 			var username = document.getElementsByName("username")[0];
 			var password = document.getElementsByName("password")[0];
 			var confirmed = document.getElementsByName("password")[1];
