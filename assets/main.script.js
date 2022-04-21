@@ -1,13 +1,15 @@
 function onSubmit(token) {
 	document.getElementsByTagName('form')[0].submit();
 }
-function validate(event) {
+
+function validate(event, errors) {
 	event.preventDefault();
 	let err = document.getElementsByClassName('err')[document.getElementsByClassName('err').length-1];
 	err.innerText = '';
-	if (errors.every(val => val === true)) {
-		err.innerText = 'Please fill in all fields';
-	} else {
+	// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some
+	const hasErr = (element) => element == true;
+	console.log(errors);
+	if (!errors.some(hasErr) & errors.length != 0) {
 		hcaptcha.execute();
 	}
 }
@@ -18,7 +20,7 @@ function printErr(element, bool) {
 	} else {
 		element.parentNode.nextElementSibling.innerText = element.parentNode.previousElementSibling.innerText + ' is not valid';
 	}
-	return bool;
+	return !bool;
 }
 
 function usernameIsValid(username) {
@@ -35,7 +37,8 @@ function emailisvalid(email) {
 window.addEventListener('load', function () {
 	let menuOpen = false;
 	let errors = [];
-	
+	const hasErr = (element) => element == true;
+	let err = document.getElementsByClassName('err')[document.getElementsByClassName('err').length-1];
 
 	document.querySelector('nav details summary').addEventListener('click', function () {
 		menuOpen = !menuOpen;
@@ -59,19 +62,34 @@ window.addEventListener('load', function () {
 		});
 	} else {
 		let submit = document.querySelector('form button');
-		submit.onclick = validate;
+		submit.addEventListener('click', function (event) {
+			// console.log(errors);
+			validate(event, errors);
+		});
 		if(location.pathname.includes('login')) {
-			submit.onclick = function() {
+			submit.addEventListener('mouseenter', function() {
 				if (!document.getElementsByName('username')[0].value || !document.getElementsByName('password')[0].value) {
+					err.innerText = 'Please fill in all fields';
 					errors[0] = true;
-				};
-			}
+				} else {
+					err.innerText = '';
+					errors[0] = false;
+				}
+			});
 		} else if (location.pathname.includes('signup')) {
-			var username = document.getElementsByName("username")[0];
-			var password = document.getElementsByName("password")[0];
-			var confirmed = document.getElementsByName("password")[1];
-			var email = document.getElementsByName("email")[0];
-
+			let username = document.getElementsByName("username")[0];
+			let password = document.getElementsByName("password")[0];
+			let confirmed = document.getElementsByName("password")[1];
+			let email = document.getElementsByName("email")[0];
+			submit.addEventListener('mouseenter', function() {
+				if (!username.value || !password.value || !confirmed.value || !email.value) {
+					err.innerText = 'Please fill in all fields';
+					errors[4] = true;
+				} else {
+					err.innerText = '';
+					errors[4] = false;
+				}
+			});
 
 			username.addEventListener("blur", () => { //add event listener for blur
 				
@@ -95,19 +113,18 @@ window.addEventListener('load', function () {
 					errors[0] = true;
 				}
 			});
+			email.addEventListener("blur", () => { 
+				//check if the email is valid
+				errors[1] = printErr(email, emailisvalid(email.value));
+			});
 			//test if the password is valid
 			password.addEventListener("blur", () => {
-				errors[1] = printErr(password, passwordIsValid(password.value));
+				errors[2] = printErr(password, passwordIsValid(password.value));
 			});
 			//test if the confirmed password is match
 			confirmed.addEventListener("blur", () => {
-				errors[2] = printErr(confirmed, password.value == confirmed.value)
+				errors[3] = printErr(confirmed, password.value == confirmed.value)
 			});
-			email.addEventListener("blur", () => { 
-				//check if the email is valid
-				errors[3] = printErr(email, emailisvalid(email.value));
-			});
-			
 		}
 	} 
 });
