@@ -4,12 +4,19 @@ $username = $_POST['username']??null;
 $password = $_POST['password'] ??null;
 $email = $_POST['email'] ??null;
 
+session_start();
+
+if(!empty($_SESSION['id'])) {
+	header("Location: user.php");
+	exit();
+}
+
 if(!empty($_POST)){
 	$pdo = connectDB();
 	$query = "INSERT INTO users (username, password, email) VALUES (?, ?, ?);";
 	$stmt = $pdo->prepare($query);
 	$stmt->execute([$username, password_hash($password, PASSWORD_DEFAULT), $email]);
-	header("Location: user.php");
+	header("Location: login.php");
 }
 $page = "Signup";
 include 'includes/header.php'; ?>
@@ -29,7 +36,7 @@ include 'includes/header.php'; ?>
 						<span class="err"></span>
 						<label for="username">Email Address</label>
 						<div>
-							<input type="email" name="email" placeholder="Username">
+							<input type="email" name="email" placeholder="Email Address">
 							<i class="ri-mail-fill"></i>
 							<span class="border"></span>
 						</div>

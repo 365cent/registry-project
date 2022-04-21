@@ -443,9 +443,14 @@ main .hero video {
     border: 1px solid rgba(0, 0, 0, .1);
     border-radius: 0.6em;
 }
+.list h2 {
+	grid-column: span 2;
+}
+.list a {
+	text-decoration: none;
+	color: #111;
+}
 .list > div {
-	display: grid;
-	grid-template-columns: minmax(0, 1fr) 50%;
 	padding: 2em;
 }
 .list > div div {
@@ -453,11 +458,61 @@ main .hero video {
 }
 .list > div div ul {
 	display: grid;
-    grid-template-columns: 1fr 20% 20% 20%;
+    grid-template-columns: 1fr 20% 20%;
 	gap: 1em;
 }
-.list h2 {
-	grid-column: span 2;
+.list > div > ul {
+	display: grid;
+	margin: 2em -2em -2em -2em;
+	background-color: #fafafa;
+	border-radius: .6em;
+	width: 100%;
+	padding: 2em;
+	gap: 1em;
+}
+.list > div > ul li {
+	display: grid;
+	grid-template-columns: 1em 1fr 3em 3em;
+	align-items: center;
+	gap: 1em;
+	padding: 1em;
+	background-color: #fff;
+	box-shadow: 0px 2px 4px rgba(0,0,0,.1);
+	border-radius: .3em	;
+	transition: box-shadow .2s ease-in-out;
+}
+/* Style inspired by https://vercel.com/dashboard */
+.list > div > ul li:hover {
+	box-shadow: 0px 4px 8px rgba(0,0,0,.12);
+}
+.list > div > ul li p {
+	font-weight: 600;
+	overflow-x: auto;
+	max-height: 2em;
+	margin-bottom: -.3em;
+}
+.list > div > ul button {
+	transform: scale(.8);
+	transform-origin: center;
+	margin-left: -.6em;
+	padding: 0 .3em;
+	width: 4em;
+}
+.list input[type="checkbox"] {
+	-webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+	outline: none;
+    border-radius: .3em;
+    width: .6em;
+    height: .6em;
+	padding: .2em;
+    border: 0.1em solid #999;
+    transition: .1s all linear;
+}
+.list input[type="checkbox"]:checked {
+	border: 0.3em solid #111;
+	padding: 0;
 }
 /*
  * Footer
@@ -515,7 +570,10 @@ footer span {
 		display: none;
 	}
 	.list > div div ul {
-		grid-template-columns: 30% 30% 30%;
+		grid-template-columns: 50% 50%;
+	}
+	.list > div div ul button {
+		width: calc(100% - 4em);
 	}
 	.list > div div ul li:first-child {
 		display: none;

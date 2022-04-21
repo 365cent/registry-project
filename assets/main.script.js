@@ -27,7 +27,7 @@ function usernameIsValid(username) {
 }
 
 function passwordIsValid(password) {
-	return /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/.test(password);
+	return /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-/]).{8,}$/.test(password);
 }
 function emailisvalid(email) {
 	return /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/.test(email);
@@ -48,6 +48,14 @@ window.addEventListener('load', function () {
 		}
 	})
 	if (location.pathname == '/') {
+		let userIcon = document.querySelector('nav > ul li:last-child a');
+		fetch('/includes/api.php?username')
+			.then(response => response.text())
+			.then(data => {
+				if(data != '') {
+					userIcon.innerText = data;
+				}
+			});
 		let swiper = new Swiper("#explore", {
 			mousewheel: true,
 			slidesPerView: "auto",
@@ -113,8 +121,25 @@ window.addEventListener('load', function () {
 				}
 			});
 			email.addEventListener("blur", () => { 
-				//check if the email is valid
-				errors[1] = printErr(email, emailisvalid(email.value));
+				if(emailisvalid(email.value)){
+					fetch('includes/api.php?email=' + email.value) //fetch the data from the api
+						//.then(response => response.json())
+						.then(response => response.text())
+						.then(response => {
+							if (response == 'true') { // if the response is false or error, show the error message
+								email.parentNode.nextElementSibling.innerText = 'email already registered';
+								errors[1] = true;
+							}
+							else {
+								email.parentNode.nextElementSibling.innerText = '';
+								errors[1] = false;
+							}
+						}
+						);	
+				}else{
+					email.parentNode.nextElementSibling.innerText = 'email is not valid';
+					errors[1] = true;
+				}
 			});
 			//test if the password is valid
 			password.addEventListener("blur", () => {

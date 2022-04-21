@@ -10,23 +10,20 @@ $passwordvalid = '/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-/]).{8,
 $emailvalid = '/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/';
 
 function update($new,$place,$id){
-    try{
-        var_dump($new,$place,$id);
-        $pdo = connectDB();
-        $sql = "UPDATE users set $place = '$new' WHERE id = $id";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute();
-        var_dump($stmt);
-        var_dump($stmt->rowCount());
-        if($stmt->rowCount()){
-            alert("update successful!!");
-        }else {
-            alert("error");
-        }
-        
-    }catch(PDOException $e){
-       alert($e->getmessage());
+
+    var_dump($new,$place,$id);
+    $pdo = connectDB();
+    $sql = "UPDATE users set $place = '$new' WHERE id = $id";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    var_dump($stmt);
+    var_dump($stmt->rowCount());
+    if($stmt->rowCount()){
+        alert("update successful!!");
+    }else {
+        alert("error");
     }
+     
 }
 function same($str,$place){
     
@@ -79,8 +76,20 @@ if(isset($_POST['password'])&&!empty($_POST['email'])){
         alert('new password is not valid');
     }
 }
+if(isset($_POST['delete'])){
+    // $pdo = connectDB();
+    // $sql = "SELECT * from users WHERE $place = '$str'";
+    // $stmt = $pdo ->prepare($sql);
+    // $stmt->execute();  
+    // $count = $stmt->rowCount();
+    // if($count >0){
+    //     return true;
+    // }else {
+    //     return false;
+    // }
+}
 $pdo = connectDB();
-// var_dump($id);
+
 try{
     $stmt = $pdo->prepare("SELECT * FROM users where id = ?");
     $stmt->execute([$id]);
@@ -106,8 +115,8 @@ try{
             <input type="text" name="password"><button onclick="sub()" type="button">password change </button>
             <button>submit all</button>
         </form>
-        <form method="post">
-		    <input type="text" name="input"><button>delete your account </button>
+        <form method="post" id="del";>
+		   <button name ="delete">delete your account </button>
 	    </form>
         <script>
         function sub() {

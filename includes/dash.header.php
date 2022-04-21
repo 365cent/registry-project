@@ -1,11 +1,9 @@
 <?php
 session_start();
-$id = $_SESSION['id'] ?? null;
-$username = $_SESSION['username'] ?? null;
-// var_dump($id);
-if(!$id){
-	//header("Location: login.php");
-	//exit();
+
+if(!empty($_SESSION['id'])) {
+	header("Location: user.php");
+	exit();
 }
 
 ?>
@@ -58,10 +56,9 @@ if(!$id){
 					<span></span>
 				</summary>
 				<ul>
-					<a title="Edit my profile" href="user.php">User Profile</a></li>
+					<li><a href="user.php"><?php echo $username ?></a></li>
 					<li><a title="View my list" href="list.php">My List</a></li>
 					<li><a title="Explore popular registry" href="#explore">Explore</a></li>
-					<li><a href="user.php"><?php echo $username ?></a></li>
 					<li><a href="user.php?logout=1">Logout</a></li>
 				</ul>
 			</details>

@@ -15,13 +15,13 @@ if($stmt->rowCount() == 0){
     $query = "CREATE TABLE `lists` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `listname` text NOT NULL,
-        `owner_id` int NOT NULL,
+        `ownerId` int NOT NULL,
         `public` boolean NOT NULL,
         `disable` boolean NOT NULL,
-        `featureImage` varchar(255) NOT NULL,
+        `featureImage` varchar(255),
         `password` varchar(255),
 		`views` int NOT NULL,
-        `expiryDate` datetime NOT NULL,
+        `expiryDate` datetime,
         `content` longtext NOT NULL,
         PRIMARY KEY(id),
         FOREIGN KEY(owner_id) REFERENCES users(id)
