@@ -8,11 +8,11 @@ $Cpassword = $_POST['password']??null;
 $usernamevalid = '/^[0-9a-zA-Z_.-]+$/';
 $passwordvalid = '/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-/]).{8,}$/';
 $emailvalid = '/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/';
+$pdo = connectDB();
 
 function update($new,$place,$id){
 
     var_dump($new,$place,$id);
-    $pdo = connectDB();
     $sql = "UPDATE users set $place = '$new' WHERE id = $id";
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
@@ -27,7 +27,6 @@ function update($new,$place,$id){
 }
 function same($str,$place){
     
-    $pdo = connectDB();
     $sql = "SELECT * from users WHERE $place = '$str'";
     $stmt = $pdo ->prepare($sql);
     $stmt->execute();  
@@ -77,19 +76,19 @@ if(isset($_POST['password'])&&!empty($_POST['email'])){
     }
 }
 if(isset($_POST['delete'])){
-    // $pdo = connectDB();
-    // $sql = "SELECT * from users WHERE $place = '$str'";
-    // $stmt = $pdo ->prepare($sql);
-    // $stmt->execute();  
-    // $count = $stmt->rowCount();
-    // if($count >0){
-    //     return true;
-    // }else {
-    //     return false;
-    // }
+    $sql = "DELETE FROM `users` WHERE `id` = $id";
+    $stmt = $pdo ->prepare($sql);
+    $stmt->execute();  
+    $count = $stmt->rowCount();
+    if($count >0){
+         alert('delete account successful');
+         session_destroy();
+         header("Location: login.php");
+         exit();
+    }else {
+        alert('delete account failed!');
+    }
 }
-$pdo = connectDB();
-
 try{
     $stmt = $pdo->prepare("SELECT * FROM users where id = ?");
     $stmt->execute([$id]);
@@ -106,7 +105,7 @@ try{
                 <li><?php echo $result['username']?></li>
                 <li><?php echo $result['email']?></li>
             </ul>
-        <form method="post" id="1" style="display: none;">
+        <form method="post" style="display: none;">
 		    <input type="text" name="input">
 	    </form>
         <form method="post">
@@ -120,7 +119,7 @@ try{
 	    </form>
         <script>
         function sub() {
-            let hiddenForm = document.getElementById("1");
+            let hiddenForm = document.getElementByName('form')[0];
             let input = hiddenForm.querySelector("input");
             let info = event.target.previousElementSibling;
             input.name = info.name;

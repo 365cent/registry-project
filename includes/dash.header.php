@@ -1,8 +1,10 @@
 <?php
 session_start();
 
-if(!empty($_SESSION['id'])) {
-	header("Location: user.php");
+$id = $_SESSION['id'] ?? null;
+
+if(empty($id)) {
+	header("Location: login.php");
 	exit();
 }
 
@@ -42,7 +44,7 @@ if(!empty($_SESSION['id'])) {
 				<li><a title="Edit my profile" href="user.php">User Profile</a></li>
 				<li><a title="View my list" href="list.php">My List</a></li>
 				<li><a title="Explore popular registry" href="#explore">Explore</a></li>
-				<li><div></div><a class="btn dark" href="javascript:void(0)"><?php echo $username ?></a></li>
+				<li><div></div><a class="btn dark" href="javascript:void(0)"><?php echo $_SESSION['username'] ?? ''; ?></a></li>
 			</ul>
 			<div class="dropdown">
 				<ul>
