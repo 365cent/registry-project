@@ -259,6 +259,16 @@ main .hero video {
 	background-color: #111;
 	color: #fff;
 }
+.round {
+	border: 1px solid #000;
+	border-radius: .3em;
+	min-width: 4em;
+}
+.round:hover {
+	background-color: #000;
+	color: #fff;
+	opacity: 1;
+}
 .swiper-wrapper {
 	padding-bottom: 2em;
 }
@@ -433,6 +443,22 @@ main .hero video {
     border: 1px solid rgba(0, 0, 0, .1);
     border-radius: 0.6em;
 }
+.list > div {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 50%;
+	padding: 2em;
+}
+.list > div div {
+	grid-column: span 2;
+}
+.list > div div ul {
+	display: grid;
+    grid-template-columns: 1fr 20% 20% 20%;
+	gap: 1em;
+}
+.list h2 {
+	grid-column: span 2;
+}
 /*
  * Footer
  */
@@ -486,6 +512,12 @@ footer span {
 		height: calc(100% - 2em);
 	}
 	main .hero > div > div > a {
+		display: none;
+	}
+	.list > div div ul {
+		grid-template-columns: 30% 30% 30%;
+	}
+	.list > div div ul li:first-child {
 		display: none;
 	}
 	footer div {
