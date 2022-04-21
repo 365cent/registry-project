@@ -1,8 +1,11 @@
 <?php 
 include 'includes/library.php';
+session_start();
 
-//$username = RemoveXSS($_POST["username"]) ?? null;
-
+if(!empty($_SESSION['id'])) {
+	header("Location: user.php");
+	exit();
+}
 //check if the user name and password is able to login
 if (!empty($_POST)) {
 
@@ -20,7 +23,6 @@ if (!empty($_POST)) {
 		$stmt->execute([$username]);
 		$result = $stmt->fetch();
 	}
-	var_dump($result);
 	//check if the username is in the database
 	if(!$result){
 		//err("username is not exits");
@@ -28,8 +30,8 @@ if (!empty($_POST)) {
 		$msg = "username or email is not exits";
 	}else{
 		if(password_verify($password, $result['password'])){
-			session_start();
 			$_SESSION['id'] = $result['id'];
+			$_SESSION['username'] = $result['username'];
 		 }else{
 			//err("password is not correct");
 			$msg = "password or username is not correct";

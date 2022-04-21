@@ -68,6 +68,7 @@ header {
 nav {
 	align-items: center;
 	justify-content: space-between;
+	position: relative;
 	height: 4em;
 }
 nav a {
@@ -101,6 +102,8 @@ nav > ul li:last-child a {
 	top: -.8em;
 	color: #fff;
 	border: 1px solid #111;
+	overflow: hidden;
+    word-break: break-all;
 	transition: .3s;
 }
 nav > ul li:last-child a:hover {
@@ -395,6 +398,26 @@ main .hero video {
 .account button {
 	border: none;
 	width: calc(100% - 3.2em);
+}
+.dropdown {
+	display: none;
+	position: absolute;
+	top: 4em;
+	right: 0;
+	box-shadow: rgb(229 229 229) 0px 0px 0.8rem 0px;
+}
+.dropdown ul li {
+	line-height: 2em;
+	width: 6em;
+    padding: 0.6em;
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent transparent #e5e5e5 transparent;
+    background-color: rgb(255 255 255 / 0.8);
+    backdrop-filter: saturate(180%) blur(20px);
+}
+.dropdown ul li a:after {
+	content: none;
 }
 /*
  * Footer
