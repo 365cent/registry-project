@@ -11,7 +11,7 @@
 	<!-- Use emoji as favicon: https://css-tricks.com/emoji-as-a-favicon/ -->
 	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#x1F4DD;</text></svg>">
 	<!-- <link rel="canonical" href="https://loki.trentu.ca"> -->
-	<link rel="stylesheet" href="assets/style.css">
+	<link rel="stylesheet" href="assets/style.min.css">
 	<!-- Preconnect for cross-origin assets -->
 	<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin="anonymous">
 	<link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin="anonymous">
