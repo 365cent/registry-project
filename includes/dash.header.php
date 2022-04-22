@@ -50,6 +50,7 @@ if(empty($id)) {
 				<ul>
 					<li><a title="Sweet Registry homepage" href="/"><i class="ri-home-line"></i>Home</a></li>
 					<li><a title="Edit my profile" href="user.php"><i class="ri-user-line"></i>User Profile</a></li>
+					<li><a title="View my list" href="list.php"><i class="ri-file-list-2-line"></i>My List</a></li>
 					<li><a href="user.php?logout=1"><i class="ri-logout-circle-line"></i>Logout</a></li>
 				</ul>
 			</div>
@@ -58,7 +59,7 @@ if(empty($id)) {
 					<span></span>
 				</summary>
 				<ul>
-					<li><a href="user.php"><?php echo $username ?></a></li>
+					<li><a href="user.php"><?php echo $_SESSION['username'] ?? '' ?></a></li>
 					<li><a title="View my list" href="list.php">My List</a></li>
 					<li><a title="Explore popular registry" href="#explore">Explore</a></li>
 					<li><a href="user.php?logout=1">Logout</a></li>

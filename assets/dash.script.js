@@ -1,3 +1,17 @@
+function edit() {
+	let hiddenForm = document.getElementsByTagName('form')[0];
+	let input = hiddenForm.querySelector("input");
+	let info = event.target.previousElementSibling;
+	input.name = info.name;
+	input.value = info.value;
+	hiddenForm.submit();
+}
+function deleteUser() {
+	let hiddenForm = document.getElementsByTagName('form')[0];
+	let input = hiddenForm.querySelector("input");
+	input.name = 'delete';
+	hiddenForm.submit();
+}
 window.addEventListener('load', function () {
 	let userIcon = document.querySelector("nav li:nth-child(4) > a");
 	let dropDown = document.getElementsByClassName("dropdown")[0];

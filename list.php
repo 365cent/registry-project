@@ -9,7 +9,15 @@ function alert($var){
 	echo '<script>alert("'.$var.'")</script>';
 }
 
-if(empty($listId)): ?>
+if(empty($listId)): 
+
+	$pdo = connectDB();
+	$stmt = $pdo->prepare("SELECT * FROM lists where ownerId = ?");
+	$stmt->execute([$id]);
+	$rows = $stmt->rowCount();
+	$result = $stmt->fetchAll()
+	?>
+
 	<main>
 		<div class="list">
 			<div>
@@ -22,30 +30,25 @@ if(empty($listId)): ?>
 					</ul>
 				</div>
 				<ul>
+					<?php if($rows> 0){
+					foreach ($rows as $row):?>
+					<a href="list.php?id=<?php echo $row['id']?>">	
+						<li>
+							<input type="checkbox" name="<?php echo $row['id']?>">
+							<p><?php echo $row['listname']?></p>
+							<button class="btn round" name="edit">Edit</button>
+							<button class="btn round" name="delete">Delete</button>
+						</li>
+					</a>
+					<?php endforeach;}
+					else{?>
 					<a href="list.php?id=1">	
 						<li>
 							<input type="checkbox" name="">
-							<p>List 1</p>
-							<button class="btn round" name="edit">Edit</button>
-							<button class="btn round" name="delete">Delete</button>
+							<p>Sample List</p>
 						</li>
 					</a>
-					<a href="list.php?id=2">	
-						<li>
-							<input type="checkbox" name="">
-							<p>List 2</p>
-							<button class="btn round" name="edit">Edit</button>
-							<button class="btn round" name="delete">Delete</button>
-						</li>
-					</a>
-					<a href="list.php?id=3">	
-						<li>
-							<input type="checkbox" name="">
-							<p>Long long long long long long long long long long long long long long long long long long long list test</p>
-							<button class="btn round" name="edit">Edit</button>
-							<button class="btn round" name="delete">Delete</button>
-						</li>
-					</a>
+					<?php };?> 
 				</ul>
 			</div>
 		</div>

@@ -435,7 +435,7 @@ main .hero video {
 .dropdown ul li a:after {
 	content: none;
 }
-.list {
+.profile, .list {
 	width: 96%;
 	max-width: 540px;
 	margin: 0 auto;
@@ -443,15 +443,65 @@ main .hero video {
     border: 1px solid rgba(0, 0, 0, .1);
     border-radius: 0.6em;
 }
-.list h2 {
-	grid-column: span 2;
+.profile form:first-child {
+	display: none;
 }
 .list a {
 	text-decoration: none;
 	color: #111;
 }
-.list > div {
+.profile > div, .list > div {
 	padding: 2em;
+}
+.profile > div {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 50%);
+}
+.profile h2 {
+	margin: auto 0;
+}
+.profile > div img {
+	margin-left: auto;
+	border-radius: 50%;
+}
+.profile form {
+	grid-column: span 2;
+}
+.profile > div ul, .list > div > ul {
+	display: grid;
+	margin: 2em -2em -2em -2em;
+	background-color: #fafafa;
+	border-radius: .6em;
+	width: 100%;
+	padding: 2em;
+	gap: 1em;
+}
+.profile > div ul li {
+	display: grid;
+	grid-template-columns: 4em 1fr 4em;
+	align-items: center;
+	gap: 1em;
+	padding: 1em;
+	background-color: #fff;
+	box-shadow: 0px 2px 4px rgba(0,0,0,.1);
+	border-radius: .3em	;
+	transition: box-shadow .2s ease-in-out;
+}
+.profile div input {
+    padding: 0.5em;
+    border: 1px solid #eaeaff;
+    border-radius: 0.3em;
+    outline: none;
+    transition: border .3
+}
+.profile div input:focus {
+	border: 1px	px solid #666;
+}
+.profile div form div {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 50%);
+	gap: 1em;
+	margin: 1em 0;
 }
 .list > div div {
 	grid-column: span 2;
@@ -459,15 +509,6 @@ main .hero video {
 .list > div div ul {
 	display: grid;
     grid-template-columns: 1fr 20% 20%;
-	gap: 1em;
-}
-.list > div > ul {
-	display: grid;
-	margin: 2em -2em -2em -2em;
-	background-color: #fafafa;
-	border-radius: .6em;
-	width: 100%;
-	padding: 2em;
 	gap: 1em;
 }
 .list > div > ul li {
@@ -491,12 +532,11 @@ main .hero video {
 	max-height: 2em;
 	margin-bottom: -.3em;
 }
-.list > div > ul button {
+.profile > div ul button, .list > div > ul button {
 	transform: scale(.8);
 	transform-origin: center;
 	margin-left: -.6em;
 	padding: 0 .3em;
-	width: 4em;
 }
 .list input[type="checkbox"] {
 	-webkit-appearance: none;
@@ -514,6 +554,7 @@ main .hero video {
 	border: 0.3em solid #111;
 	padding: 0;
 }
+
 /*
  * Footer
  */
