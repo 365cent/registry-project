@@ -1,7 +1,9 @@
+// onSubmit submits the form after hCaptcha is solved
 function onSubmit(token) {
 	document.getElementsByTagName('form')[0].submit();
 }
 
+// validate executes the hCaptcha if there is no error
 function validate(event, errors) {
 	event.preventDefault();
 	let err = document.getElementsByClassName('err')[document.getElementsByClassName('err').length-1];
@@ -13,6 +15,7 @@ function validate(event, errors) {
 	}
 }
 
+// printErr prints the error message along side the input field
 function printErr(element, bool) {
 	if(bool) {
 		element.parentNode.nextElementSibling.innerText = '';

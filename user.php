@@ -40,6 +40,7 @@ function alert($var){
 }
 
 if(!empty($_POST['username'])){
+    //update new user name
     if (preg_match($usernamevalid, $Cname)) {
         if(!same($Cname,'username')){
             update($Cname,'username',$id);
@@ -53,7 +54,7 @@ if(!empty($_POST['username'])){
 }
 if(!empty($_POST['email'])){
     
-    //update the datebase of new user name 
+    //update the datebase of new email 
     if (preg_match($emailvalid, $Cemail)) {
         if(!same($Cemail,'email')){
             update($Cemail,'email',$id);
@@ -66,7 +67,7 @@ if(!empty($_POST['email'])){
     
 }
 if(!empty($_POST['password'])){
-    //update the datebase of new user name 
+    //update the datebase of new password
     if (preg_match($passwordvalid, $Cpassword)) {
         update(password_hash($Cpassword,PASSWORD_DEFAULT),'password',$id);
     }else{
@@ -113,7 +114,7 @@ try{
 	<main>
 		<div class="profile">
 			<!-- hidden form for self-processing and honeypot -->
-			<form method="post" style="display: none;">
+			<form method="post">
 				<input type="text" name="input">
 			</form>
 			<div>

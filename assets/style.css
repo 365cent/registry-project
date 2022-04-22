@@ -443,7 +443,7 @@ main .hero video {
     border: 1px solid rgba(0, 0, 0, .1);
     border-radius: 0.6em;
 }
-.profile form:first-child {
+.profile form:first-child, .list form:first-child {
 	display: none;
 }
 .list a {
@@ -487,15 +487,15 @@ main .hero video {
 	border-radius: .3em	;
 	transition: box-shadow .2s ease-in-out;
 }
-.profile div input {
+.profile div input, .list div input {
     padding: 0.5em;
     border: 1px solid #eaeaff;
     border-radius: 0.3em;
     outline: none;
-    transition: border .3
+    transition: border .3s;
 }
-.profile div input:focus {
-	border: 1px	px solid #666;
+.profile div input:focus, .list div input:focus {
+	border: 1px solid #666;
 }
 .profile div form div {
 	display: grid;
@@ -509,7 +509,12 @@ main .hero video {
 .list > div div ul {
 	display: grid;
     grid-template-columns: 1fr 20% 20%;
-	gap: 1em;
+	gap: .5em;
+}
+.list > div form {
+	display: grid;
+	margin-top: 2em;
+	gap: .5em;
 }
 .list > div > ul li {
 	display: grid;
@@ -526,11 +531,35 @@ main .hero video {
 .list > div > ul li:hover {
 	box-shadow: 0px 4px 8px rgba(0,0,0,.12);
 }
+.list > div > ul li p:before {
+	content: attr(data-content);
+	color: #fff;
+    background-color: #666;
+    font-size: .6em;
+    padding: 0.3em 0;
+    border-radius: 0.3em;
+}
 .list > div > ul li p {
 	font-weight: 600;
 	overflow-x: auto;
 	max-height: 2em;
 	margin-bottom: -.3em;
+}
+.list > div > ul li span {
+	grid-column: span 4;
+	font-size: 1.2em;
+	color: #666;
+}
+.list .edit {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 50%);
+	gap: .5em;
+	margin: 2em -2em -2em -2em;
+    background-color: #fafafa;
+	padding: 2em;
+}
+.list .edit button {
+	width: calc(100% - 3.2em);
 }
 .profile > div ul button, .list > div > ul button {
 	transform: scale(.8);

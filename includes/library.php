@@ -26,32 +26,48 @@ function connectDB()
 
     return $pdo;
 }
-function checkErrors($file,$limit){
-    try{
-        if(!isset($_FILES[$file]['error']) || is_array($_FILES[$file]['error']) ){
-            throw new RuntimeException("Invalid parameters.");
-        }
-        //check Error val
-        switch($_FILES[$file]['error']){
-            case UPLOAD_ERR_OK:
-                break;
-            case UPLOAD_ERR_NO_FILE:
-                throw new RuntimeException('No file sent!');
-            case UPLOAD_ERR_INI_SIZE:
-            case UPLOAD_ERR_FORM_SIZE:
-                throw new RuntimeException('Exceeded file size limited');
-            default:
-                throw new RuntimeException('unknow errors.');
-        }
-        //check filesize here
-        if($_FILES[$file]['size']>$limit){
-            throw new RuntimeException('Exceeded file size limited');
-        }
-        return "";
-    }catch(RuntimeException $e){
-        return $e ->getmessage();
-    }
+
+// checkErrors checks for errors in the file upload
+function checkErrors($file, $limit) {
+	try {
+		if($_FILES[$file]['error'] || is_array($_FILES[$file]['error'])) {
+			throw new RuntimeException('Invalid parameters.');
+		}
+		switch ($_FILES[$file]['error']) {
+			case UPLOAD_ERR_OK:
+				break;
+			case UPLOAD_ERR_NO_FILE:
+				throw new RuntimeException('No file sent.');
+			case UPLOAD_ERR_INI_SIZE:
+			case UPLOAD_ERR_FORM_SIZE:
+				throw new RuntimeException('Exceeded filesize limit.');
+			default:
+				throw new RuntimeException('Unknown errors.');
+		}
+		if($_FILES[$file]['size'] > $limit) {
+			throw new Exception("File size is too large.");
+		}
+		
+		if (exif_imagetype($_FILES[$file]['tmp_name']) != IMAGETYPE_GIF
+		 	&& exif_imagetype($_FILES[$file]['tmp_name']) != IMAGETYPE_JPEG
+		 	&& exif_imagetype($_FILES[$file]['tmp_name']) != IMAGETYPE_PNG) {
+		 	throw new Exception("File is not an image");
+		}
+		return;
+	}
+	catch(RuntimeException $e) {
+		return $e->getMessage();
+	}
 }
+function createFilename($file, $path, $prefix, $unique_id){
+	$filename = $_FILES[$file]['name'];
+	$exts = explode(".", $filename);
+	$ext = $exts[count($exts)-1];
+	$filename = $prefix."_".$unique_id.".".$ext;
+	$newname = $path.$filename;
+	return $newname;
+}
+
 function RemoveXSS($val)
     {
         // remove all non-printable characters. CR(0a) and LF(0b) and TAB(9) are allowed
